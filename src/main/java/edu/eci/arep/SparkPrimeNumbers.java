@@ -2,6 +2,9 @@ package edu.eci.arep;
 
 import spark.*;
 
+import java.math.BigInteger;
+import java.util.HashMap;
+
 import static spark.Spark.*;
 
 /**
@@ -11,7 +14,10 @@ public class SparkPrimeNumbers {
     public static void main(String[] args) {
         port(getPort());
         get("/:number", ((request, response) -> {
-            return PrimeNumbers.primeNumbersTill(Integer.parseInt(request.params(":number")));
+//            long rta = PrimeNumbers.ackermann(Integer.parseInt(request.params(":number")), );
+            HashMap<BigInteger, BigInteger> rta = PrimeNumbers.primeBigFactorize(new BigInteger(request.params(":number")));
+            System.out.println(rta);
+            return rta;
         }));
     }
 

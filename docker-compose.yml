@@ -1,0 +1,7 @@
+version: '2'
+services:
+  app:
+    image: srubianof/arepprimefactor:latest
+    container_name: app
+    ports:
+      - "4567:6000"
