@@ -54,7 +54,7 @@ public class PrimeNumbers {
         // else, n was divided down to 1, meaning that the last prime factor divided itself out. therefore, it is the last prime factor
         if (primeFactor < n) primeFactor = n;
         setPrimeFactor(primeFactors, primeFactor);
-
+        
         return primeFactors;
     }
 
@@ -79,7 +79,6 @@ public class PrimeNumbers {
                 i = i.add(BigInteger.ONE);
             }
         }
-
         if (primeFactor.compareTo(n) < 0) primeFactor = n;
         setBigPrimeFactor(primeFactors, primeFactor);
 
