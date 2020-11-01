@@ -5,3 +5,4 @@ services:
     container_name: app
     ports:
       - "4567:6000"
+    restart: always
