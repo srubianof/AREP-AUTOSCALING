@@ -8,13 +8,15 @@ import java.util.HashMap;
 import static spark.Spark.*;
 
 /**
- * Hello world!
+ * Spark Prime Numbers Factorization HTTP Handler
+ *
+ * @author Santiago Rubiano
+ * @version November 2, 2020
  */
 public class SparkPrimeNumbers {
     public static void main(String[] args) {
         port(getPort());
         get("/:number", ((request, response) -> {
-//            long rta = PrimeNumbers.ackermann(Integer.parseInt(request.params(":number")), );
             HashMap<BigInteger, BigInteger> rta = PrimeNumbers.primeBigFactorize(new BigInteger(request.params(":number")));
             System.out.println(rta);
             return rta;
