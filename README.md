@@ -1,14 +1,14 @@
 # Custom AWS AutoScaling 
-The idea of AWS Auto Scaling is to allow applications to maintain an steady and predictable performance by automatically adjusting the capacity of the instances used.
-To view this behaviour we are going use [Michael's Yaworski](https://github.com/mikeyaworski/PrimeFactorization) implementation of Prime Factorization where given a number n, will be reduced into a product of only prime numbers and its multiplicity.
+The idea of AWS Auto Scaling is to allow applications to maintain a steady and predictable performance by automatically adjusting the capacity of the instances used.
+To view this behaviour we are going use [Michael's Yaworski](https://github.com/mikeyaworski/PrimeFactorization) implementation of Prime Factorization where given a number n, it will be reduced into a product of only prime numbers and its multiplicity.
 
-In the following figure the architecture is explained. There are two EC2 instances that are triggered when the CPU reaches 50% or more usage. 
+In the following figure the architecture is explained. There are two EC2 instances that will be triggered when the CPU reaches 50% or more usage. 
 
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772687902672289792/Blank_diagram-5.png)
 
 
 ## Badges
-Continous Integration  [![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/srubianof/PrimeNumbers)
+Continuous Integration  [![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/srubianof/PrimeNumbers)
 
 ## Getting Started
 The following steps are required in order to get a copy of the project, and be able to run it.
@@ -19,7 +19,6 @@ You need to have installed the next software to successfully run the project:
 * Maven
 * Git
 * Docker
-* 
 ### Installing
 This a step by step guide that will tell you how to get a copy of the project and how to execute
         
@@ -29,7 +28,7 @@ git clone https://github.com/srubianof/AREP-AUTOSCALING.git
 ```
 
 ## Program execution
-For a proper execution of the project, please perfom it in a UNIX environment where you use the provided shell program to a controlled execution:
+For a proper execution of the project, please perform it in a UNIX environment where you use the provided shell program to a controlled execution:
 
 ```
 sh sh.sh
@@ -39,9 +38,9 @@ sh sh.sh
 
 ## AWS Auto Scaling 
 
-To be able to set up a scaled and load-balacend application follow the next step by step guide. 
+To be able to set up a scaled and load-balanced application, follow the next step by step guide. 
 
-1. Open the Amazon EC2  [console](https://console.aws.amazon.com/ec2/) and launch a new instance, suggestion, choose Ubuntu Server 18.04 LTS, t2.micro instance type, and open the port 4567 in security group. 
+1. Open the Amazon EC2  [console](https://console.aws.amazon.com/ec2/) and launch a new instance, suggestion: choose Ubuntu Server 18.04 LTS, t2.micro instance type, and open the port 4567 in security group. 
 2. Once the instance is generated, access to this:
 ```
 ssh -i "<YOUR
@@ -64,11 +63,11 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 5. To be able to launch our docker compose each time the machine stars we are going to create a new service that will execute it as show below
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772710385139580958/carbon-15.png)
-Once the service is create you must grant permissions so it can be executed, read and written with chmod 777, and finally enable it
+Once the service is create you must grant permissions, so it can be executed, read and written with chmod 777, and finally enable it.
 ```
 systemctl enable docker-service.service
 ```
-6. Once we have our main machine up and running we are going to crear an Amazon Machine Image (AMI) which will provide the information required to launch a new instance.
+6. Once we have our main machine up and running, we are going to create an Amazon Machine Image (AMI) which will provide the information required to launch a new instance.
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772711784313782304/Screen_Shot_2020-10-31_at_6.20.14_PM.png)
 Then we are going to give it a name
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772711793323278366/Screen_Shot_2020-10-31_at_6.20.39_PM.png)
@@ -80,13 +79,13 @@ Is important to select the previously created Key Pair (Ubuntu EC2 key pair)
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772713585091674112/Screen_Shot_2020-10-31_at_6.26.20_PM.png)
 It's important to select 3 VPCs where the EC2 Auto Scaling will balance our instances
 ![](https://media.discordapp.net/attachments/748398289514397717/772713766579339274/Screen_Shot_2020-10-31_at_6.29.28_PM.png?width=1344&height=1468)
-We are going to select the group size, meaning the amount of new allowed instances, as well as our scaling policies, in this case we are going to set a max 50% CPU use to trigger a new EC2 instance
+We are going to select the group size, meaning the amount of new allowed instances, as well as our scaling policies, in this case we are going to set a max 50% CPU used to trigger a new EC2 instance
 ![](https://media.discordapp.net/attachments/748398289514397717/772713765275172864/Screen_Shot_2020-10-31_at_6.27.40_PM.png?width=1344&height=1468)
-9. A load balancer will be created in order to redirect all the traffic to one IP and according to the previously created policy will instanciate new EC2s as needed
+9. A load balancer will be created in order to redirect all the traffic to one IP and according to the previously created policy will instantiate new EC2s as needed
 
 - Select Application Load Balancer 
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772715065462882304/Screen_Shot_2020-10-31_at_7.11.44_PM.png)
-- Select the prevously defined VPCs
+- Select the previously defined VPCs
 ![](https://media.discordapp.net/attachments/748398289514397717/772715061722087484/Screen_Shot_2020-10-31_at_7.12.19_PM.png?width=1344&height=1468)
 - Configure the security group, so the EC2 instances will be able to be accessed
 -![](https://media.discordapp.net/attachments/748398289514397717/772715057398153226/Screen_Shot_2020-10-31_at_7.13.24_PM.png?width=1344&height=1468)
@@ -110,7 +109,7 @@ Thanks to the Auto Scaling feature offered by AWS we can see that the Response t
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772711833995182080/Screen_Shot_2020-11-01_at_1.20.15_AM.png)
 
 
-As the load increases and is gradually reduced, AWS Auto Scaling feature triggers and terminates the instances automatically, the following figures demostrates how this happens and the alerts are launched
+As the load increases and is gradually reduced, AWS Auto Scaling feature triggers and terminates the instances automatically, the following figures demonstrates how this happens, and the alerts are launched
     CPU USE
     ![](https://cdn.discordapp.com/attachments/748398289514397717/772711827951058944/Screen_Shot_2020-11-01_at_1.32.06_AM.png)
     ![](https://cdn.discordapp.com/attachments/748398289514397717/772711830677094400/Screen_Shot_2020-11-01_at_1.32.14_AM.png)
