@@ -28,7 +28,7 @@ git clone https://github.com/srubianof/AREP-AUTOSCALING.git
 ```
 
 ## Program execution
-For a proper execution of the project, please perform it in a UNIX environment where you use the provided shell program to a controlled execution:
+For a proper execution of the project, please execute it in a UNIX environment where you will be able to use the provided shell script for a controlled execution:
 
 ```
 sh sh.sh
@@ -41,7 +41,7 @@ sh sh.sh
 To be able to set up a scaled and load-balanced application, follow the next step by step guide. 
 
 1. Open the Amazon EC2  [console](https://console.aws.amazon.com/ec2/) and launch a new instance, suggestion: choose Ubuntu Server 18.04 LTS, t2.micro instance type, and open the port 4567 in security group. 
-2. Once the instance is generated, access to this:
+2. Once the instance is generated, access to it:
 ```
 ssh -i "<YOUR
 -KEY>.pem" <YOUR_USER>@ec2<EC2_IP>.compute-1.amazonaws.com
@@ -61,9 +61,9 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
-5. To be able to launch our docker compose each time the machine stars we are going to create a new service that will execute it as show below
+5. To be able to launch our docker compose each time the machine stars, we are going to create a new service that will execute it as show below. 
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772710385139580958/carbon-15.png)
-Once the service is create you must grant permissions, so it can be executed, read and written with chmod 777, and finally enable it.
+Once the service is created you must grant permissions, so it can be executed, read and written with chmod 777, and finally enable it.
 ```
 systemctl enable docker-service.service
 ```
@@ -79,7 +79,7 @@ Is important to select the previously created Key Pair (Ubuntu EC2 key pair)
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772713585091674112/Screen_Shot_2020-10-31_at_6.26.20_PM.png)
 It's important to select 3 VPCs where the EC2 Auto Scaling will balance our instances
 ![](https://media.discordapp.net/attachments/748398289514397717/772713766579339274/Screen_Shot_2020-10-31_at_6.29.28_PM.png?width=1344&height=1468)
-We are going to select the group size, meaning the amount of new allowed instances, as well as our scaling policies, in this case we are going to set a max 50% CPU used to trigger a new EC2 instance
+We are going to select the group size, meaning the amount of new allowed instances, as well as our scaling policies, in this case we are going to set a max 35% CPU usage to trigger a new EC2 instance
 ![](https://media.discordapp.net/attachments/748398289514397717/772713765275172864/Screen_Shot_2020-10-31_at_6.27.40_PM.png?width=1344&height=1468)
 9. A load balancer will be created in order to redirect all the traffic to one IP and according to the previously created policy will instantiate new EC2s as needed
 
@@ -100,22 +100,24 @@ To simulate concurrent users executing the same requests, you can use Newman to 
 newman run collection.postman_collection.json -e environment.postman_environment.json -n 50
 ```
 
-As shown below each intance behaves different corresponding to the load made, as well we can see that after the CPU reaches 50% in the first instance the following instances are triggered
+As shown below each intance behaves different corresponding to the load made, as well we can see that after the CPU reaches 35% in the first instance the following instances are triggered
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772711827951058944/Screen_Shot_2020-11-01_at_1.32.06_AM.png)
-![](https://cdn.discordapp.com/attachments/748398289514397717/772711830677094400/Screen_Shot_2020-11-01_at_1.32.14_AM.png)
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772711829331378186/Screen_Shot_2020-11-01_at_1.32.10_AM.png)
+![](https://cdn.discordapp.com/attachments/748398289514397717/772711830677094400/Screen_Shot_2020-11-01_at_1.32.14_AM.png)
 
 Thanks to the Auto Scaling feature offered by AWS we can see that the Response time is reduced as more instances are launched as the load increases
 ![](https://cdn.discordapp.com/attachments/748398289514397717/772711833995182080/Screen_Shot_2020-11-01_at_1.20.15_AM.png)
 
 
-As the load increases and is gradually reduced, AWS Auto Scaling feature triggers and terminates the instances automatically, the following figures demonstrates how this happens, and the alerts are launched
-    CPU USE
-    ![](https://cdn.discordapp.com/attachments/748398289514397717/772711827951058944/Screen_Shot_2020-11-01_at_1.32.06_AM.png)
-    ![](https://cdn.discordapp.com/attachments/748398289514397717/772711830677094400/Screen_Shot_2020-11-01_at_1.32.14_AM.png)
-    ![](https://cdn.discordapp.com/attachments/748398289514397717/772711829331378186/Screen_Shot_2020-11-01_at_1.32.10_AM.png)
-    ALERTS
-    ![](https://cdn.discordapp.com/attachments/748398289514397717/772727668260208640/Screen_Shot_2020-11-01_at_5.40.48_PM.png)
+As the load increases and is gradually reduced, AWS Auto Scaling feature triggers and terminates the instances automatically, the following figures demonstrates how this happens, and the alerts that are launched
+
+CPU USE
+![](https://cdn.discordapp.com/attachments/748398289514397717/772711827951058944/Screen_Shot_2020-11-01_at_1.32.06_AM.png)
+![](https://cdn.discordapp.com/attachments/748398289514397717/772711829331378186/Screen_Shot_2020-11-01_at_1.32.10_AM.png)
+![](https://cdn.discordapp.com/attachments/748398289514397717/772711830677094400/Screen_Shot_2020-11-01_at_1.32.14_AM.png)
+
+ALERTS
+![](https://cdn.discordapp.com/attachments/748398289514397717/772727668260208640/Screen_Shot_2020-11-01_at_5.40.48_PM.png)
 
 ## Built With
 * Java 8
